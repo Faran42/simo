@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+    <head>       
+
+        <title>SIMO - Sistema de Marcação Otimizada</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">     
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        
+        
+        <style>
+            body {
+                background: #80e5ff;
+                
+                {{!-- background: linear-gradient(360deg, rgba(2,0,36,1) 0%, rgba(118,204,107,1) 0%, rgba(0,212,255,1) 100%); --}}
+            }
+
+            h1 {
+                text-align: center;
+
+            }
+
+            header {
+                padding: 20px 20px;
+                background-color: #fff;
+            }
+
+            div, input {
+                border-radius: 20px;
+            }
+
+            nav {
+                background: #fff;
+            }
+
+            footer {
+                background: #fff;
+            }
+
+            .butaum{
+                padding: 200px 150px;                  
+            }
+            
+            .butaum:hover{    
+                              
+                background-color:green;
+                color: white;
+            }
+
+            nav{
+                padding-left: 25%;
+                background-color: rgb(27, 141, 235);
+            }
+
+            .nav-link{
+                color: white;
+                font-weight: 600;
+                font-size: 2em;
+            }
+
+            
+
+        </style>
+        
+    </head>
+
+    <header class="header">
+            <h1>SIMO - Sistema de Marcação Otimizada</h1>
+    </header>
+
+    <nav>
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link " href="/">Home</a> 
+                {{!-- active --}}
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/exame">Exames</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/paciente">Pacientes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="/paciente/list">Listagem de pacientes cadastrados</a>
+            </li>
+        </ul>
+    </nav>
+
+    <body>
+        
+        <div class="row">
+            <div class="col-md-10 offset-md-1" style="background-color: #fff; margin-top: 25px; padding: 20px;">
+                {{{body}}}
+            </div>
+        </div>
+        
+    </body>    
+</html>
