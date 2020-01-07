@@ -1,0 +1,107 @@
+<h3>{{viewTitle}}</h3>
+
+<form action="/paciente" method="POST" autocomplete="off">
+<input type="hidden" name="_id" value="{{paciente._id}}">
+    <div class="form-group">
+        <label>Nome:</label>
+        <input type="text" class="form-control" name="nome" placeholder="Nome" value="{{paciente.nome}}">
+        <div class="text-danger">
+            {{paciente.nomeError}}
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Sobrenome:</label>
+        <input type="text" class="form-control" name="sobrenome" placeholder="Nome Completo" value="{{paciente.sobrenome}}">
+        <div class="text-danger">
+            {{paciente.sobrenomeError}}
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Data de Nascimento</label>
+        <input type="date" class="form-control" name="dataNascimento" placeholder="Data de Nascimento" value="{{paciente.dataNascimento}}">
+        <div class="text-danger">
+            {{paciente.dataNascimentoError}}
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Sexo:</label>
+        <input type="text" class="form-control" name="sexo" placeholder="Sexo" value="{{paciente.sexo}}">
+        <div class="text-danger">
+            {{paciente.sexoError}}
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Nº do Cartão SUS:</label>
+        <input type="number" class="form-control" name="cartaoSus" placeholder="N° do Cartão SUS" value="{{paciente.cartaoSus}}">
+        <div class="text-danger">
+            {{paciente.cartaoSusError}}
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Endereço:</label>
+        <input type="text" class="form-control" name="endereco" placeholder="Ex.: Rua José..." value="{{paciente.endereco}}">
+        <div class="text-danger">
+            {{paciente.enderecoError}}
+        </div>
+    </div>
+    <div class="form-group">
+        <label>N°:</label>
+        <input type="text" class="form-control" name="numero" placeholder="42" value="{{paciente.numero}}">
+        <div class="text-danger">
+            {{paciente.numeroError}}
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Complemento:</label>
+        <input type="text" class="form-control" name="complemento" placeholder="Complemento" value="{{paciente.complemento}}">
+        <div class="text-danger">
+            {{paciente.complementoError}}
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Bairro:</label>
+        <input type="text" class="form-control" name="bairro" placeholder="Nome do bairro" value="{{paciente.bairro}}">
+        <div class="text-danger">
+            {{paciente.bairroError}}
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Cidade:</label>
+        <input type="text" class="form-control" name="cidade" placeholder="Nome da cidade" value="{{paciente.cidade}}">
+        <div class="text-danger">
+            {{paciente.cidadeError}}
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Estado:</label>
+        <input type="text" class="form-control" name="estado" placeholder="Eestado" value="{{paciente.eestado}}">
+        <div class="text-danger">
+            {{paciente.estadoError}}
+        </div>
+    </div>
+    <div class="form-group">
+        <label>CEP:</label>
+        <input type="text" class="form-control" name="cep" placeholder="cep" value="{{paciente.cep}}">
+        <div class="text-danger">
+            {{paciente.cepError}}
+        </div>
+    </div>
+    <div class="form-group">
+        <label>E-mail:</label>
+        <input type="text" class="form-control" name="email" placeholder="Nome" value="{{paciente.email}}">
+        <div class="text-danger">
+            {{paciente.emailError}}
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Telefone:</label>
+        <input type="text" class="form-control" name="telefone" placeholder="telefone" value="{{paciente.telefone}}">
+        <div class="text-danger">
+            {{paciente.telefoneError}}
+        </div>
+    </div>     
+    <div class="form-group">
+        <button type="submit" class="btn btn-info"><i class="fa fa-database"></i> Cadastrar</button>
+        <a class="btn btn-secondary" href="/paciente/list"><i class="fa fa-list-alt"></i> Listar Todos</a>
+    </div>
+</form>

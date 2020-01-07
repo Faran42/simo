@@ -1,0 +1,34 @@
+<style>
+            div, input {
+                border-radius: 10px;
+            }
+        </style>
+
+<h3><a class="btn btn-success" href="/exame"><i class=" fa fa-plus"></i> Criar novo exame</a> Listagem de Exames cadastrados</h3>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nome do Exame</th>
+            <th>Descrição</th>
+            <th>Validade</th>            
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each list}}
+        <tr>
+            <td>{{this.nome}}</td>
+            <td>{{this.descricao}}</td>
+            <td>{{this.validade}}</td>            
+            <td>
+                <a href="/exame/{{this._id}}"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></a>
+                <a href="/exame/delete/{{this._id}}" onclick="return confirm('Are you sure to delete this record?');"><i class="fa fa-trash fa-lg" aria-hidden="true"></i></a>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<a href="/exame">
+    <button class="btn btn-warning">Voltar</button>
+</a>
