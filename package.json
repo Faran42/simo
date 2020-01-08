@@ -1,10 +1,10 @@
 {
   "name": "project2",
   "version": "1.0.0",
-  "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
@@ -17,5 +17,14 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.2"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Faran42/simo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Faran42/simo/issues"
+  },
+  "homepage": "https://github.com/Faran42/simo#readme",
+  "description": ""
 }
