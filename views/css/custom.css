@@ -3,10 +3,9 @@
     display: flex; 
     justify-content: center;
     align-items: center;   
-    border-radius: 100px, 100px;
     
+        
 }
-
 
 
 
@@ -27,25 +26,55 @@ header {
 }
 
 div, input {
-    border-radius: 20px;
+    border-radius: 10px;
 }
 
 
 nav{
+    display: flex; 
+    justify-content: center;
+    align-items: center;   
+    border-radius: 100px, 100px;
     background-color: rgb(27, 141, 235);
+    text-decoration: none;
 }
 
 .nav-link{
     color: white;
     font-weight: 600;
     font-size: 2em;
+    
+}
+
+.nav-item{
+    text-decoration: none;
+
 }
 
 #espaco {
     padding: 5px;
 }
 
-.fonteGrande{
+a:link {
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a:active {
+    text-decoration: underline;
+}
+
+.btn-big {
+    padding: 3%;
     font-weight: 600;
     font-size: 2em;
+    color: #FFF;
+    border-radius: 1em;
 }
