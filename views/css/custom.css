@@ -1,0 +1,51 @@
+
+.caixa{
+    display: flex; 
+    justify-content: center;
+    align-items: center;   
+    border-radius: 100px, 100px;
+    
+}
+
+
+
+
+body {
+    background: #80e5ff;
+    
+    /* {{!-- background: linear-gradient(360deg, rgba(2,0,36,1) 0%, rgba(118,204,107,1) 0%, rgba(0,212,255,1) 100%); --}} */
+}
+
+h1 {
+    text-align: center;
+
+}
+
+header {
+    padding: 20px 20px;
+    background-color: #fff;
+}
+
+div, input {
+    border-radius: 20px;
+}
+
+
+nav{
+    background-color: rgb(27, 141, 235);
+}
+
+.nav-link{
+    color: white;
+    font-weight: 600;
+    font-size: 2em;
+}
+
+#espaco {
+    padding: 5px;
+}
+
+.fonteGrande{
+    font-weight: 600;
+    font-size: 2em;
+}
