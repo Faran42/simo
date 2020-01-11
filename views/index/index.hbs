@@ -21,57 +21,57 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div>
-                    <label>Nome do paciente:</label>
-                    <input id="pacienteInput" type="text" name="buscaNome" placeholder="Digite o nome aqui" value=''>
-                    <ul class="list-group" id="pacienteList">
-                        
-                    </ul>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">Paciente:</span>
+                                </div>
+                                <input id="pacienteInput" type="text" placeholder="Nome" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+                            </div>
+                            <ul class="list-group" id="pacienteList">
+                                <!-- aqui vai o codigo html (markup) de um item "paciente" -->  
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">Exame:</span>
+                                </div>
+                                <input id="exameInput" type="text" class="form-control" placeholder="Nome"  aria-label="Username" aria-describedby="basic-addon1">
+                            </div>
+                            <ul class="list-group" id="exameList">
+                                <!-- aqui vai o codigo html (markup) de um item "paciente" -->  
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-                <label>Exame:</label>
-                <select>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                </select>
-                <label>Data:</label>    
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                <button id="marcar" type="button" class="btn btn-primary">Marcar</button>
             </div>
         </div>
     </div>
     </div>                
 </div>
 
-
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
 
 <script>
-    
-    
 
-    function redirectTo(){
-
-        document.getElementById("myButton").onclick = function () {
-            location.href = "www.yoursite.com";
-        };
-    }
-
-        
-   
-
-    function createListItem(id, nome){
-        return          "<li paciente-id='" + id + "' class='list-group-item'>" +
-                            "<span class='name'>" + nome + "</span>" +
-                                "<button class='btn btn-default btn-xs pull-right remove-item'>" +
-                                "Select" +
-                            "</button>" +
-                        "</li>";
-        
+     function createListItem(id, nome){
+        return "<li paciente-id='" + id + "' class='list-group-item'>" +
+                    "<span class='name'>" + nome + "</span>" +
+                    "<button class='btn btn-default btn-xs pull-right select-item'>" +
+                        "Select" +
+                    "</button>" +
+                "</li>";        
     }
 
     function addListItemsToList(listItems){
@@ -79,11 +79,25 @@
         $('#pacienteList').html(listItems);
     }
 
-    $('#pacienteInput').on('input',function(e){
+    $(document).on('click', '.select-item', function () {
+        $('.select-item').parent().css("background-color", "white");
+        $(this).parent().css("background-color", "red");
+    });
+
+    $('#marcar').click(function(e){
+        //para funcionar, temos que checar se um cliente e um exame
+        //foram selecionados obrigatoriamente.
         
-        if ($(this).val() != ''){
+    });
+
+    $('#pacienteInput').on('input', function(e){
+        
+        //pegando valor do input
+        var dado = $(this).val();
+
+        if (dado != ''){
         axios
-            .get("http://localhost:3000/index/paciente/" + $(this).val())
+            .get("http://localhost:3000/index/paciente/" + dado)
             .then(response => {
                 //popular lista
                 var combinedMarkup = '';
@@ -95,6 +109,50 @@
             $('#pacienteList').html('');
         }
     });
+
+
+    //criar lista exames
+
+     function createListItemExame(id, nome){
+        return "<li exame-id='" + id + "' class='list-group-item'>" +
+                    "<span class='name'>" + nome + "</span>" +
+                    "<button class='btn btn-default btn-xs pull-right select-item-exame'>" +
+                        "Select" +
+                    "</button>" +
+                "</li>";        
+    }
+
+    function addListItemsToListExame(listItems){
+        $('#exameList').html('');
+        $('#exameList').html(listItems);
+    }
+
+    $(document).on('click', '.select-item-exame', function () {
+        $('.select-item-exame').parent().css("background-color", "white");
+        $(this).parent().css("background-color", "red");
+    });
+
+    $('#exameInput').on('input', function(e){
+        
+        //pegando valor do input
+        var dado = $(this).val();
+
+        if (dado != ''){
+        axios
+            .get("http://localhost:3000/index/exame/" + dado)
+            .then(response => {
+                //popular lista
+                var combinedMarkup = '';
+                response.data.forEach(exame => 
+                        combinedMarkup += createListItemExame(exame._id, exame.nome));
+                addListItemsToListExame(combinedMarkup);
+            });
+        } else {
+            $('#exameList').html('');
+        }
+    });
+
+
 
 
 </script>
