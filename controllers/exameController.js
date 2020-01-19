@@ -22,6 +22,12 @@ router.post('/', (req, res) => {
 
 function insertRecord( req, res){
     var exame = new Exame();
+
+
+
+
+
+
     exame.nome = req.body.nome;
     exame.descricao = req.body.descricao;
     exame.validade = req.body.validade;    

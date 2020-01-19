@@ -13,3 +13,4 @@ mongoose.set('useCreateIndex', true);
 require('./user.model');
 require('./paciente.model');
 require('./exame.model');
+require('./paciente_exame.model')
