@@ -21,7 +21,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                
+                <p>Selecione a data e hora do exame: <input type="text" id="datepicker"></p>
                 <div class="row">
                     <div class="col-md-6">
                         <div>
@@ -64,6 +64,25 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
 
 <script>
+    $(function() {
+        $('#datepicker').datepicker({
+            dateFormat: 'dd-mm-yy',
+            onSelect: function(datetext){
+                var d = new Date(); // for now
+                var h = d.getHours();
+                    h = (h < 10) ? ("0" + h) : h ;
+
+                    var m = d.getMinutes();
+                m = (m < 10) ? ("0" + m) : m ;
+
+                var s = d.getSeconds();
+                s = (s < 10) ? ("0" + s) : s ;
+
+                    datetext = datetext + " " + h + ":" + m + ":" + s;
+                $('#datepicker').val(datetext);
+            },
+        });
+    });
 
      function createListItem(id, nome){
         return "<li paciente-id='" + id + "' class='list-group-item'>" +
@@ -79,32 +98,58 @@
         $('#pacienteList').html(listItems);
     }
 
+    function SelectItem(selected, liList, selectedLabel){
+        liList.css("background-color", "white");
+        liList.removeAttr(selectedLabel);
+        selected.css("background-color", "red");
+        selected.attr(selectedLabel, true);
+    }
+
     $(document).on('click', '.select-item', function () {
-        $('.select-item').parent().css("background-color", "white");
-        $(this).parent().css("background-color", "red");
+        
+        var esteLi = $(this).parent();
+        var todosLi = $('.select-item').parent();
+        SelectItem(esteLi, todosLi, 'paciente-selected');
     });
 
     $('#marcar').click(function(e){
-        //para funcionar, temos que checar se um cliente e um exame
-        //foram selecionados obrigatoriamente.
-        
+        var paciente = $("li[paciente-selected=true]");
+        var exame = $("li[exame-selected=true]");
+        var data = $("#datepicker").datepicker().val();
+
+        if (paciente.length == 0 || exame.length == 0 || data == ''){
+            alert("Selecione um Paciente, Exame e a Data!")
+            return;
+        }
+        var paciente_id = paciente.attr("paciente-id");
+        var exame_id = exame.attr("exame-id");
+       
+
+        axios
+            .post("http://localhost:3000/index/paciente/marcar", {
+                paciente_id,
+                exame_id,
+                data
+            })
+            .then(response => {
+                alert("post funciona")
+            });
     });
 
     $('#pacienteInput').on('input', function(e){
-        
         //pegando valor do input
         var dado = $(this).val();
 
         if (dado != ''){
-        axios
-            .get("http://localhost:3000/index/paciente/" + dado)
-            .then(response => {
-                //popular lista
-                var combinedMarkup = '';
-                response.data.forEach(paciente => 
-                        combinedMarkup += createListItem(paciente._id, paciente.nome));
-                addListItemsToList(combinedMarkup);
-            });
+            axios
+                .get("http://localhost:3000/index/paciente/" + dado)
+                .then(response => {
+                    //popular lista
+                    var combinedMarkup = '';
+                    response.data.forEach(paciente => 
+                            combinedMarkup += createListItem(paciente._id, paciente.nome));
+                    addListItemsToList(combinedMarkup);
+                });
         } else {
             $('#pacienteList').html('');
         }
@@ -128,8 +173,9 @@
     }
 
     $(document).on('click', '.select-item-exame', function () {
-        $('.select-item-exame').parent().css("background-color", "white");
-        $(this).parent().css("background-color", "red");
+        var esteLi = $(this).parent();
+        var todosLi = $('.select-item-exame').parent();
+        SelectItem(esteLi, todosLi, 'exame-selected');
     });
 
     $('#exameInput').on('input', function(e){

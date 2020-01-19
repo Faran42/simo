@@ -19,4 +19,8 @@ router.get('/exame/:nome', (req, res) => {
     });
 });
 
+router.post('/paciente/marcar', (req, res) => {
+    console.log(req.body);
+});
+
 module.exports = router;
