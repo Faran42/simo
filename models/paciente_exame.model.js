@@ -8,7 +8,7 @@ var paciente_exameSchema = new mongoose.Schema({
         type: String
     },
 
-    data:{
+    dataExame:{
         type: Date
     },
 });

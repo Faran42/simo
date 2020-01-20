@@ -21,7 +21,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p>Selecione a data e hora do exame: <input type="text" id="datepicker"></p>
+                <p>Selecione a data e hora do exame: <input type="date" id="dataExame"></p>
                 <div class="row">
                     <div class="col-md-6">
                         <div>
@@ -63,28 +63,9 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
 
-<script>
-    $(function() {
-        $('#datepicker').datepicker({
-            dateFormat: 'dd-mm-yy',
-            onSelect: function(datetext){
-                var d = new Date(); // for now
-                var h = d.getHours();
-                    h = (h < 10) ? ("0" + h) : h ;
+<script>    
 
-                    var m = d.getMinutes();
-                m = (m < 10) ? ("0" + m) : m ;
-
-                var s = d.getSeconds();
-                s = (s < 10) ? ("0" + s) : s ;
-
-                    datetext = datetext + " " + h + ":" + m + ":" + s;
-                $('#datepicker').val(datetext);
-            },
-        });
-    });
-
-     function createListItem(id, nome){
+    function createListItem(id, nome){
         return "<li paciente-id='" + id + "' class='list-group-item'>" +
                     "<span class='name'>" + nome + "</span>" +
                     "<button class='btn btn-default btn-xs pull-right select-item'>" +
@@ -115,21 +96,21 @@
     $('#marcar').click(function(e){
         var paciente = $("li[paciente-selected=true]");
         var exame = $("li[exame-selected=true]");
-        var data = $("#datepicker").datepicker().val();
+        var dataExame = $("#dataExame").val();
 
-        if (paciente.length == 0 || exame.length == 0 || data == ''){
+        if (paciente.length == 0 || exame.length == 0 || dataExame.length == 0){
             alert("Selecione um Paciente, Exame e a Data!")
             return;
         }
-        var paciente_id = paciente.attr("paciente-id");
-        var exame_id = exame.attr("exame-id");
+        var _idPaciente = paciente.attr("paciente-id");
+        var _idExame = exame.attr("exame-id");
        
 
         axios
             .post("http://localhost:3000/index/paciente/marcar", {
-                paciente_id,
-                exame_id,
-                data
+                _idPaciente,
+                _idExame,
+                dataExame                
             })
             .then(response => {
                 alert("post funciona")

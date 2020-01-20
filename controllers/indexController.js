@@ -26,11 +26,12 @@ router.post('/paciente/marcar', (req, res) => {
     var paciente_exame = new Paciente_Exame();
     paciente_exame._idPaciente = req.body._idPaciente;
     paciente_exame._idExame = req.body._idExame;
-    paciente_exame.data = req.body.data;    
+    paciente_exame.dataExame = req.body.dataExame;    
     paciente_exame.save((err, doc) => {
-        if(!err)
-            // res.redirect('/')
+        if(!err){            
             res.json(paciente_exame)
+            
+        }   
         else {
             if(err.name == 'ValidationError'){
                 handleValidationError(err, req.body);
@@ -44,5 +45,23 @@ router.post('/paciente/marcar', (req, res) => {
         }
     });
 });
+
+function handleValidationError(err, body){   
+    for(field in err.errors){
+        switch(err.errors[field].path) {
+            case 'nome':
+                body['_idPacienteError'] = err.errors[field].message;
+                break;                
+            case 'telefone':
+                body['_idExameError'] = err.errors[field].message;
+                break;            
+            case 'telefone':
+                body['dataExameError'] = err.errors[field].message;
+                break;            
+            default:
+                break;
+        }
+    }
+}
 
 module.exports = router;
