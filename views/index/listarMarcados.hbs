@@ -1,0 +1,47 @@
+<style>
+            div, input {
+                border-radius: 10px;
+            }
+        </style>
+
+<h3> Listagem de Marcações</h3>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nome do Paciente</th>
+            <th>Nome do Exame</th>
+            <th>Data da Marcação</th>            
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each list}}
+        <tr>
+            <td id="nomePaciente">{{this._idPaciente}}</td>
+            <td id="nomeExame">{{this._idExame}}</td>
+            <td id="dataExame">{{this.dataExame}}</td>            
+            <td>
+                <a href="/exame/{{this._id}}"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></a>
+                <a href="/exame/delete/{{this._id}}" onclick="return confirm('Are you sure to delete this record?');"><i class="fa fa-trash fa-lg" aria-hidden="true"></i></a>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<a href="/">
+    <button class="btn btn-warning">Voltar</button>
+</a>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
+
+<script>
+
+    $("#nomePaciente").ready(function(e) {
+    console.log();
+});
+
+
+
+
+</script>

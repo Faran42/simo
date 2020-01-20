@@ -21,6 +21,20 @@ router.get('/exame/:nome', (req, res) => {
     });
 });
 
+router.get('/marcados', (req, res) =>{
+    Paciente_Exame.find((err, docs) => {
+        if(!err){
+            console.log(docs)
+            res.render("index/listarMarcados.hbs", {
+                list: docs
+            });
+        }
+        else{
+            console.log('Erro ao recuperar lista de marcações:' + err);
+        }
+    })
+})
+
 router.post('/paciente/marcar', (req, res) => {
     console.log(req.body);
     var paciente_exame = new Paciente_Exame();
