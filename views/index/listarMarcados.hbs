@@ -11,15 +11,17 @@
             <th>Nome do Paciente</th>
             <th>Nome do Exame</th>
             <th>Data da Marcação</th>            
+            <th>Validade</th>            
             <th></th>
         </tr>
     </thead>
     <tbody>
         {{#each list}}
         <tr>
-            <td id="nomePaciente">{{this._idPaciente}}</td>
-            <td id="nomeExame">{{this._idExame}}</td>
-            <td id="dataExame">{{this.dataExame}}</td>            
+            <td id="nomePaciente">{{this._idPaciente.nome}}</td>
+            <td id="nomeExame">{{this._idExame.nome}}</td>
+            <td id="dataExame">{{this.dataExameConvertido}}</td>            
+            <td id="dataExame">{{this._idExame.validade}} dias</td>            
             <td>
                 <a href="/exame/{{this._id}}"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></a>
                 <a href="/exame/delete/{{this._id}}" onclick="return confirm('Are you sure to delete this record?');"><i class="fa fa-trash fa-lg" aria-hidden="true"></i></a>

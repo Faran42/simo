@@ -1,13 +1,8 @@
 const mongoose = require('mongoose');
 
 var paciente_exameSchema = new mongoose.Schema({
-    _idPaciente:{
-        type: String
-    },
-    _idExame:{
-        type: String
-    },
-
+    _idPaciente: { type: mongoose.Schema.ObjectId, ref: 'Paciente' },
+    _idExame: { type: mongoose.Schema.ObjectId, ref: 'Exame' },
     dataExame:{
         type: Date
     },

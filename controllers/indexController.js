@@ -1,5 +1,6 @@
 const express = require('express');
 var router = express.Router();
+const moment = require('moment');
 
 const mongoose = require('mongoose');
 
@@ -22,11 +23,15 @@ router.get('/exame/:nome', (req, res) => {
 });
 
 router.get('/marcados', (req, res) =>{
-    Paciente_Exame.find((err, docs) => {
+    Paciente_Exame.find().populate('_idPaciente').populate('_idExame').exec((err, docs) => {
         if(!err){
-            console.log(docs)
+            var novoDocs = docs.map((doc) => {
+                doc.dataExameConvertido = moment(doc.dataExame).format('DD/MM/YYYY');
+                return doc;
+            });
+            
             res.render("index/listarMarcados.hbs", {
-                list: docs
+                list: novoDocs
             });
         }
         else{
@@ -36,29 +41,56 @@ router.get('/marcados', (req, res) =>{
 })
 
 router.post('/paciente/marcar', (req, res) => {
-    console.log(req.body);
+    var iExame = req.body;
+    Paciente_Exame.findOne({
+        _idPaciente : iExame._idPaciente, 
+        _idExame : iExame.dataExame
+    }).populate('_idExame').exec((err, pac_exame) => {
+        if (!pac_exame){
+            handleExameCreation(iExame,res);
+        } else{
+            var dataExame = moment(pac_exame.dataExame);
+            var validade = moment(pac_exame._idExame.validade);
+            var dataFinal = dataExame.add(validade, 'days');
+            var queroMarcarEstaData = moment(iExame.dataExame);
+            var range = moment().range(dataExame, dataFinal);
+            var naoPossoMarcar = range.contains(queroMarcarEstaData);
+            if (naoPossoMarcar){
+                //nao posso marcar porque ja existe um exame nesta data
+            }
+            else {
+                handleExameCreation(iExame,res);
+            }
+        }
+    });
+
+
+    
+});
+
+function handleExameCreation(iExame, res){
     var paciente_exame = new Paciente_Exame();
-    paciente_exame._idPaciente = req.body._idPaciente;
-    paciente_exame._idExame = req.body._idExame;
-    paciente_exame.dataExame = req.body.dataExame;    
+    paciente_exame._idPaciente = iExame._idPaciente;
+    paciente_exame._idExame = iExame._idExame;
+    paciente_exame.dataExame = iExame.dataExame;    
     paciente_exame.save((err, doc) => {
-        if(!err){            
+        if(!err){     
             res.json(paciente_exame)
-            
         }   
         else {
             if(err.name == 'ValidationError'){
-                handleValidationError(err, req.body);
+                handleValidationError(err, iExame);
+                
                 res.render('index.hbs',{
                     viewTitle : "Insira um novo exame",
-                    paciente_exame : req.body
+                    paciente_exame : iExame
                 });
             }                
 
             console.log('Error during record insertion : ' + err);
         }
     });
-});
+}
 
 function handleValidationError(err, body){   
     for(field in err.errors){
