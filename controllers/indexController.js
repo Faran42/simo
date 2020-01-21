@@ -61,11 +61,8 @@ router.post('/paciente/marcar', (req, res) => {
             else {
                 handleExameCreation(iExame,res);
             }
-        }
-    });
-
-
-    
+        };
+    });    
 });
 
 function handleExameCreation(iExame, res){
