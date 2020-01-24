@@ -42,11 +42,15 @@ router.get('/marcados', (req, res) =>{
 
 router.post('/paciente/marcar', (req, res) => {
     var iExame = req.body;
+    console.log(1, iExame)
     Paciente_Exame.findOne({
         _idPaciente : iExame._idPaciente, 
         _idExame : iExame.dataExame
     }).populate('_idExame').exec((err, pac_exame) => {
+        console.log(2, pac_exame)
         if (!pac_exame){
+            console.log(3, pac_exame)
+
             handleExameCreation(iExame,res);
         } else{
             var dataExame = moment(pac_exame.dataExame);

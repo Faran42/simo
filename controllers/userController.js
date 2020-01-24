@@ -10,6 +10,14 @@ router.get('/', (req, res) => {
     });
 });
 
+router.get('/data', (req, res) => {
+    res.render('user/data.hbs',{
+        viewTitle : "Teste de manipulação de datas" 
+    });
+});
+
+
+
 router.post('/', (req, res) => {
     if(req.body._id ==''){
         insertRecord(req, res);
