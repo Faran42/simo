@@ -9,14 +9,14 @@ const Exame = mongoose.model('Exame');
 const Paciente_Exame = mongoose.model('Paciente_Exame');
 
 router.get('/paciente/:nome', (req, res) => {
-    var q = Paciente.find({nome : new RegExp(req.params.nome, 'i')}).limit(8);
+    var q = Paciente.find({nome : new RegExp(req.params.nome, 'i')}).limit(3);
     q.exec(function(err, paciente) {
         res.json(paciente);
     });
 });
 
 router.get('/exame/:nome', (req, res) => {
-    var q = Exame.find({nome : new RegExp(req.params.nome, 'i')}).limit(8);
+    var q = Exame.find({nome : new RegExp(req.params.nome, 'i')}).limit(3);
     q.exec(function(err, exame) {
         res.json(exame);
     });
@@ -26,7 +26,9 @@ router.get('/marcados', (req, res) =>{
     Paciente_Exame.find().populate('_idPaciente').populate('_idExame').exec((err, docs) => {
         if(!err){
             var novoDocs = docs.map((doc) => {
-                doc.dataExameConvertido = moment(doc.dataExame).format('DD/MM/YYYY');
+                console.log(doc.dataExame)
+                doc.dataExameConvertido = moment.utc(doc.dataExame).format('DD/MM/Y');
+                console.log(doc.dataExameConvertido)
                 return doc;
             });
             
@@ -41,17 +43,29 @@ router.get('/marcados', (req, res) =>{
 })
 
 router.post('/paciente/marcar', (req, res) => {
-    var iExame = req.body;
-    console.log(1, iExame)
-    Paciente_Exame.findOne({
-        _idPaciente : iExame._idPaciente, 
-        _idExame : iExame.dataExame
-    }).populate('_idExame').exec((err, pac_exame) => {
-        console.log(2, pac_exame)
+    var iExame = req.body;    
+
+
+    Paciente_Exame.find({ _idPaciente : req.body._idPaciente, _idExame : req.body._idExame }).exec((err, obj) =>{
+        const {_idPaciente} = obj;
+        console.log(typeof(obj))
+        console.log(obj)
+        
+        
+
+        console.log(typeof(_idPaciente))
+        console.log(_idPaciente)
+    });
+
+    handleExameCreation(iExame,res);
+    /*console.log(1, iExame)
+    Paciente_Exame.findOne({ _idPaciente : iExame._idPaciente, _idExame : iExame.dataExame}).populate('_idExame').exec((err, pac_exame) => {
+        console.log(pac_exame.dataExame)
         if (!pac_exame){
             console.log(3, pac_exame)
 
-            handleExameCreation(iExame,res);
+            
+
         } else{
             var dataExame = moment(pac_exame.dataExame);
             var validade = moment(pac_exame._idExame.validade);
@@ -66,14 +80,21 @@ router.post('/paciente/marcar', (req, res) => {
                 handleExameCreation(iExame,res);
             }
         };
-    });    
+    });  */  
 });
 
 function handleExameCreation(iExame, res){
+    
+    //checar se o paciente já tem esse exame cadastrado, se não, cadastrar
+    //se já tiver, checar se a validade já expirou, caso positivo cadastrar
+    //caso contrário, informar que esse paciente já possui esse exame válido.
+
     var paciente_exame = new Paciente_Exame();
     paciente_exame._idPaciente = iExame._idPaciente;
     paciente_exame._idExame = iExame._idExame;
-    paciente_exame.dataExame = iExame.dataExame;    
+    paciente_exame.dataExame = iExame.dataExame;   
+    
+    
     paciente_exame.save((err, doc) => {
         if(!err){     
             res.json(paciente_exame)
@@ -110,5 +131,7 @@ function handleValidationError(err, body){
         }
     }
 }
+
+
 
 module.exports = router;
