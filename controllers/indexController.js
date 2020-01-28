@@ -26,9 +26,9 @@ router.get('/marcados', (req, res) =>{
     Paciente_Exame.find().populate('_idPaciente').populate('_idExame').exec((err, docs) => {
         if(!err){
             var novoDocs = docs.map((doc) => {
-                console.log(doc.dataExame)
+                
                 doc.dataExameConvertido = moment.utc(doc.dataExame).format('DD/MM/Y');
-                console.log(doc.dataExameConvertido)
+                
                 return doc;
             });
             
@@ -48,13 +48,22 @@ router.post('/paciente/marcar', (req, res) => {
 
     Paciente_Exame.find({ _idPaciente : req.body._idPaciente, _idExame : req.body._idExame }).exec((err, obj) =>{
         const {_idPaciente} = obj;
-        console.log(typeof(obj))
-        console.log(obj)
-        
+
+        const tamanhoVetor = obj.length
+        console.log(tamanhoVetor)
+        if(obj[0]==null){
+            console.log("Pode cadastrar")
+            
+            
+        }else
+            console.log("Repetições encontradas: ", tamanhoVetor)
+            console.log(obj[tamanhoVetor-1])
+            
+
+               
         
 
-        console.log(typeof(_idPaciente))
-        console.log(_idPaciente)
+        
     });
 
     handleExameCreation(iExame,res);
