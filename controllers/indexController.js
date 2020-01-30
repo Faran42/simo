@@ -45,11 +45,12 @@ router.get('/marcados', (req, res) =>{
 router.post('/paciente/marcar', (req, res) => {
     var iExame = req.body;    
 
+    let data = moment();
 
-    Paciente_Exame.find({ _idPaciente : req.body._idPaciente, _idExame : req.body._idExame }).exec((err, obj) =>{
-        const {_idPaciente} = obj;
+    console.log('Data: ',data)
 
-
+    Paciente_Exame.find({ _idPaciente : req.body._idPaciente, _idExame : req.body._idExame }).populate('_idExame').exec((err, obj) =>{
+                        
         const tamanhoVetor = obj.length
         
         if(obj[0]==null){
@@ -58,6 +59,15 @@ router.post('/paciente/marcar', (req, res) => {
             
             
         }else
+            //PENDENTE PEGAR A ¨&@&%!¨#%%@&!*&# DA DATA
+            Exame.findById(req.body._idExame).exec((err, obj) => {
+                const {validade} = obj
+                validadeExame = validade
+
+                console.log('Validade dentro: ',validadeExame)
+
+                return validadeExame
+            })
             console.log("Repetições encontradas: ", tamanhoVetor)
             console.log(obj[tamanhoVetor-1])  
         

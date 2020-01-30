@@ -12,16 +12,36 @@ router.get('/', (req, res) => {
     });
 });
 
-router.get('/data', (req, res) => {    
+router.get('/data', (req, res) => {
+    
+    const {dias} = req.query;
+
+    console.log(typeof(dias))   
+    moment.locale('pt-br')
     const data = moment().format('LTS');
-    const data1 = moment().subtract(10, 'days').calendar(); // 01/20/2020
-    const data2 = moment().subtract(6, 'days').calendar();  // Last Friday at 9:46 AM
-    const data3 = moment().subtract(3, 'days').calendar();  // Last Monday at 9:46 AM
-    const data4 = moment().subtract(1, 'days').calendar();  // Yesterday at 9:46 AM
+   
+    const data1 = moment().subtract(dias, 'days').calendar(); // 01/20/2020
+    
+    const data2 = moment().subtract(dias, 'days').calendar();  // Last Friday at 9:46 AM
+    const data3 = moment().subtract(dias, 'days').calendar();  // Last Monday at 9:46 AM
+    const data4 = moment().subtract(dias, 'days').calendar();  // Yesterday at 9:46 AM
     const data5 = moment().calendar();                      // Today at 9:46 AM
-    const data6 = moment().add(1, 'days').calendar();       // Tomorrow at 9:46 AM
-    const data7 = moment().add(3, 'days').calendar();       // Sunday at 9:46 AM
-    const data8 = moment().add(10, 'days').calendar(); 
+    const data6 = moment().add(dias, 'days').calendar();       // Tomorrow at 9:46 AM
+    const data7 = moment().add(dias, 'days').calendar();       // Sunday at 9:46 AM
+    const data8 = moment().add(dias, 'days').calendar(); 
+   
+    const data9 = moment().format('LT');   // 11:08
+
+    const data10 = moment().format('LTS');  // 11:08:42
+    const data11 = moment().format('L');    // 30/01/2020
+    const data12 = moment().format('l');    // 30/1/2020
+    const data13 = moment().format('LL');   // 30 de Janeiro de 2020
+    const data14 = moment().format('ll');   // 30 de Jan de 2020
+    const data15 = moment().format('LLL');  // 30 de Janeiro de 2020 às 11:08
+    const data16 = moment().format('lll');  // 30 de Jan de 2020 às 11:08
+    const data17 = moment().format('LLLL'); // Quinta-feira, 30 de Janeiro de 2020 às 11:08
+    const data18 = moment().format('llll');
+    
     res.render('user/data.hbs',{
         viewTitle : "Teste de manipulação de datas",
         data : data, 
@@ -32,7 +52,17 @@ router.get('/data', (req, res) => {
         data5 : data5, 
         data6 : data6, 
         data7 : data7, 
-        data8 : data8 
+        data8 : data8,
+        data9 : data9, 
+        data10 : data10,
+        data11 : data11, 
+        data12 : data12, 
+        data13 : data13, 
+        data14 : data14, 
+        data15 : data15, 
+        data16 : data16,  
+        data17 : data17,  
+        data18 : data18  
         
     });
 });
