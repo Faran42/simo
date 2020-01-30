@@ -3,16 +3,37 @@ var router = express.Router();
 
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
+const moment = require('moment');
 
 router.get('/', (req, res) => {
     res.render('user/addOrEdit.hbs',{
-        viewTitle : "Insira um novo usuário" 
+        viewTitle : "Insira um novo usuário",
+        
     });
 });
 
-router.get('/data', (req, res) => {
+router.get('/data', (req, res) => {    
+    const data = moment().format('LTS');
+    const data1 = moment().subtract(10, 'days').calendar(); // 01/20/2020
+    const data2 = moment().subtract(6, 'days').calendar();  // Last Friday at 9:46 AM
+    const data3 = moment().subtract(3, 'days').calendar();  // Last Monday at 9:46 AM
+    const data4 = moment().subtract(1, 'days').calendar();  // Yesterday at 9:46 AM
+    const data5 = moment().calendar();                      // Today at 9:46 AM
+    const data6 = moment().add(1, 'days').calendar();       // Tomorrow at 9:46 AM
+    const data7 = moment().add(3, 'days').calendar();       // Sunday at 9:46 AM
+    const data8 = moment().add(10, 'days').calendar(); 
     res.render('user/data.hbs',{
-        viewTitle : "Teste de manipulação de datas" 
+        viewTitle : "Teste de manipulação de datas",
+        data : data, 
+        data1 : data1, 
+        data2 : data2,
+        data3 : data3, 
+        data4 : data4, 
+        data5 : data5, 
+        data6 : data6, 
+        data7 : data7, 
+        data8 : data8 
+        
     });
 });
 
@@ -122,5 +143,7 @@ router.get('/delete/:id', (req, res) => {
         }
     });
 });
+
+
 
 module.exports = router;

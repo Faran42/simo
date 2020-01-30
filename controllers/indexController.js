@@ -28,7 +28,7 @@ router.get('/marcados', (req, res) =>{
             var novoDocs = docs.map((doc) => {
                 
                 doc.dataExameConvertido = moment.utc(doc.dataExame).format('DD/MM/Y');
-                
+                                
                 return doc;
             });
             
@@ -49,20 +49,17 @@ router.post('/paciente/marcar', (req, res) => {
     Paciente_Exame.find({ _idPaciente : req.body._idPaciente, _idExame : req.body._idExame }).exec((err, obj) =>{
         const {_idPaciente} = obj;
 
+
         const tamanhoVetor = obj.length
-        console.log(tamanhoVetor)
+        
         if(obj[0]==null){
-            console.log("Pode cadastrar")
+
+            console.log("Cadastro realizado às ")
             
             
         }else
             console.log("Repetições encontradas: ", tamanhoVetor)
-            console.log(obj[tamanhoVetor-1])
-            
-
-               
-        
-
+            console.log(obj[tamanhoVetor-1])  
         
     });
 
@@ -106,7 +103,8 @@ function handleExameCreation(iExame, res){
     
     paciente_exame.save((err, doc) => {
         if(!err){     
-            res.json(paciente_exame)
+            // res.json(paciente_exame)
+            res.status(200).send('Cadastro realizado com sucesso.')
         }   
         else {
             if(err.name == 'ValidationError'){
@@ -140,7 +138,5 @@ function handleValidationError(err, body){
         }
     }
 }
-
-
 
 module.exports = router;
