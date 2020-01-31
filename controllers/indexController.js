@@ -43,60 +43,55 @@ router.get('/marcados', (req, res) =>{
 })
 
 router.post('/paciente/marcar', (req, res) => {
-    var iExame = req.body;    
+    moment.locale('pt-br')
 
-    let data = moment();
+    var iExame = req.body;
 
-    console.log('Data: ',data)
-
+    const {dataExame} = iExame
+    
     Paciente_Exame.find({ _idPaciente : req.body._idPaciente, _idExame : req.body._idExame }).populate('_idExame').exec((err, obj) =>{
-                        
-        const tamanhoVetor = obj.length
         
+
+        const tamanhoVetor = obj.length      
+
+        // se a busca não encontrar um exame prévio, o cadastro é realizado
         if(obj[0]==null){
 
-            console.log("Cadastro realizado às ")
+            console.log("Cadastro realizado às ",moment().format('LTS') )
+            handleExameCreation(iExame,res);
+
             
+        //caso um exame anterior seja encontrado para este paciente
+        //sera feita uma validação para garantir que esse paciente pode
+        // realizar um novo exame dependendo se o anterior ainda está válido    
+        }else{
+            const dataDoUltimoExame = obj[tamanhoVetor-1].dataExame
+            console.log('Data do ultimo Exame',dataDoUltimoExame)
+             
             
-        }else
-            //PENDENTE PEGAR A ¨&@&%!¨#%%@&!*&# DA DATA
             Exame.findById(req.body._idExame).exec((err, obj) => {
                 const {validade} = obj
-                validadeExame = validade
-
-                console.log('Validade dentro: ',validadeExame)
-
-                return validadeExame
+                
+                console.log('Data: ', validade, dataExame, moment.utc(dataDoUltimoExame).format('YYYY/MM/DD'), moment(dataDoUltimoExame).add(validade, 'days').calendar())
+                                                
+                const dataValida = moment.utc(dataDoUltimoExame).add(validade, 'days').format('YYYY-MM-DD')
+                
+                //
+                console.log('DataExame: ', dataExame)
+                console.log('Proxima data válida: ',dataValida)
+               
+                if(dataExame > dataValida){
+                    handleExameCreation(iExame,res);
+                    console.log("Cadastro realizado às ",moment().format('LTS') )
+                    
+                
+                }else                      
+                    res.status(200).send(`Paciente possui exames válido, data para o proximo exame: ${dataValida}`) 
+                
             })
-            console.log("Repetições encontradas: ", tamanhoVetor)
-            console.log(obj[tamanhoVetor-1])  
-        
-    });
-
-    handleExameCreation(iExame,res);
-    /*console.log(1, iExame)
-    Paciente_Exame.findOne({ _idPaciente : iExame._idPaciente, _idExame : iExame.dataExame}).populate('_idExame').exec((err, pac_exame) => {
-        console.log(pac_exame.dataExame)
-        if (!pac_exame){
-            console.log(3, pac_exame)
-
-            
-
-        } else{
-            var dataExame = moment(pac_exame.dataExame);
-            var validade = moment(pac_exame._idExame.validade);
-            var dataFinal = dataExame.add(validade, 'days');
-            var queroMarcarEstaData = moment(iExame.dataExame);
-            var range = moment().range(dataExame, dataFinal);
-            var naoPossoMarcar = range.contains(queroMarcarEstaData);
-            if (naoPossoMarcar){
-                //nao posso marcar porque ja existe um exame nesta data
-            }
-            else {
-                handleExameCreation(iExame,res);
-            }
-        };
-    });  */  
+        }
+            console.log("Repetições encontradas: ", tamanhoVetor)           
+    });  
 });
 
 function handleExameCreation(iExame, res){

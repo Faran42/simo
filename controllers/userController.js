@@ -15,16 +15,21 @@ router.get('/', (req, res) => {
 router.get('/data', (req, res) => {
     
     const {dias} = req.query;
-
-    console.log(typeof(dias))   
+      
     moment.locale('pt-br')
     const data = moment().format('LTS');
    
     const data1 = moment().subtract(dias, 'days').calendar(); // 01/20/2020
     
     const data2 = moment().subtract(dias, 'days').calendar();  // Last Friday at 9:46 AM
-    const data3 = moment().subtract(dias, 'days').calendar();  // Last Monday at 9:46 AM
+    const data3 = moment().subtract(dias+1, 'days').calendar();  // Last Monday at 9:46 AM
+    
     const data4 = moment().subtract(dias, 'days').calendar();  // Yesterday at 9:46 AM
+    if(data3<data4)
+        console.log('data3',data3)
+    else
+        console.log('data4', data4)
+    
     const data5 = moment().calendar();                      // Today at 9:46 AM
     const data6 = moment().add(dias, 'days').calendar();       // Tomorrow at 9:46 AM
     const data7 = moment().add(dias, 'days').calendar();       // Sunday at 9:46 AM
