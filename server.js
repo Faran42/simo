@@ -1,5 +1,7 @@
 require('./models/db')
 
+const {base, urlLocal, porta} = require('./util/baseUrl')
+
 const express = require('express');
 const path = require('path');
 const exphbs = require('express-handlebars');
@@ -12,6 +14,7 @@ const indexController = require('./controllers/indexController');
 
 const app = express()
 
+
 app.use(bodyparser.urlencoded({
     extended: true
 }));
@@ -23,14 +26,19 @@ app.set('views engine', 'hbs');
 app.engine('hbs', exphbs({ extname: '.hbs', defaultLayout: 'mainLayout', layoutsDir: __dirname + '/views/layouts/' }));
 
 
+const url = base+urlLocal+porta
 
-app.listen(3000, function(){
-    console.log('Listen to Port 3000')
+
+app.listen(porta, function(){
+    
+    console.log("Url: "+`${url}`)
 })
 
 app.get('/', (req, res) => {
     res.render('index/index.hbs', {
-        viewTitle : "Home" 
+        viewTitle : "Home",
+        baseUrl : url,
+        baseUrlExame : urlLocal+porta+"/exame/"
     })
 })
 

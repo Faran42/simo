@@ -4,14 +4,22 @@
             }
         </style>
 
-<h3>Lista de Pacientes</h3>
+<h3><a class="btn btn-secondary" href="/paciente"><i class=" fa fa-plus"></i> Create New</a> User List</h3>
 <table class="table table-striped">
     <thead>
         <tr>
             <th>Nome</th>
+            <th>Sobrenome</th>
+            <th>Nascimento</th>
+            <th>Sexo</th>
             <th>SUS</th>
+            <th>Endereço</th>
+            <th>N°</th>
+            <th>Complemento</th>
+            <th>Bairro</th>
             <th>Cidade</th>
             <th>Estado</th>
+            <th>CEP</th>
             <th>E-mail</th>
             <th>Telefone</th>         
             <th></th>
@@ -21,9 +29,17 @@
         {{#each list}}
         <tr>
             <td>{{this.nome}}</td>
+            <td>{{this.sobrenome}}</td>
+            <td>{{this.dataNascimento}}</td>
+            <td>{{this.sexo}}</td>
             <td>{{this.cartaoSus}}</td>
+            <td>{{this.endereco}}</td>
+            <td>{{this.numero}}</td>
+            <td>{{this.complemento}}</td>
+            <td>{{this.bairro}}</td>
             <td>{{this.cidade}}</td>
             <td>{{this.estado}}</td>
+            <td>{{this.cep}}</td>
             <td>{{this.email}}</td>
             <td>{{this.telefone}}</td>
             <td>
@@ -35,4 +51,6 @@
     </tbody>
 </table>
 
-<a class="btn btn-success" href="/paciente">Novo Paciente</a> 
+<a href="/paciente">
+    <button class="btn btn-warning">Voltar</button>
+</a>

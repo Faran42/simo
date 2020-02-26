@@ -1,29 +1,33 @@
 <h3>{{viewTitle}}</h3>
 
 <form action="/exame" method="POST" autocomplete="off">
-<input type="hidden" name="_id" value="{{exame._id}}">
-    <div class="form-group">
-        <label>Nome do exame:</label>
-        <input type="text" class="form-control" name="nome" placeholder="Nome do exame" value="{{exame.nome}}">
-        <div class="text-danger">
-            {{exame.nomeError}}
-        </div>
-    </div>
-    <div class="form-group">
-        <label>Descrição</label>
-        <input type="text" class="form-control" name="descricao" placeholder="Detalhe o exame" value="{{exame.descricao}}">
-        <div class="text-danger">
-            {{exame.descricaoError}}
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            <label>Validade do exame:</label>
-            <input type="number" class="form-control" name="validade" placeholder="Quantidade de dias" value="{{exame.validade}}">
-        </div>
-    </div>    
-    <div class="form-group">
-        <button type="submit" class="btn btn-info"><i class="fa fa-database"></i> Submit</button>
-        <a class="btn btn-secondary" href="/exame/list"><i class="fa fa-list-alt"></i> View All</a>
+    <div class="row">
+        <input type="hidden" name="_id" value="{{exame._id}}"/>
+
+            <div class="form-group col-sm-8">
+                <label>Nome:</label>
+                <input type="text" class="form-control" name="nome" placeholder="Nome do exame" value="{{exame.nome}}">
+                <div class="text-danger">
+                    {{exame.nomeError}}
+                </div>
+            </div>
+
+            <div class="form-group col-sm-4">
+                <label>Validade:</label>
+                <input type="number" class="form-control" name="validade" placeholder="Quantidade de dias" value="{{exame.validade}}">      
+            </div>
+
+            <div class="form-group col-sm-12">
+                <label>Descrição:</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="descricao" placeholder="Detalhe o exame" value="{{exame.descricao}}"></textarea>
+                <div class="text-danger">
+                    {{exame.descricaoError}}
+                </div>
+            </div>
+
+            <div class="form-group  col-sm-12">
+                <button type="submit" class="btn btn-success">Cadastrar</button>
+                <a class="btn btn-info" href="/exame/list"></i>Ver Todos</a>
+            </div>
     </div>
 </form>

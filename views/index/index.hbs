@@ -1,10 +1,11 @@
+<span id="baseUrl" style="display: none;">{{baseUrl}}</span>
 <div>
     <!-- Button trigger modal -->
     <div class="caixa">        
 
         <input type="button" class="btn btn-success btn-big fonteGrande" data-toggle="modal" data-target="#exampleModal" value="Marcar Exame"><span id="espaco"></span>
-        <input type="button" class="btn btn-primary btn-big fonteGrande" onclick="location.href='http://localhost:3000/exame'" value="Cadastrar Exame" /><span id="espaco"></span>
-        <input type="button" class="btn btn-warning btn-big fonteGrande" onclick="location.href='http://localhost:3000/paciente'" value="Cadastrar Paciente" >        
+        <input type="button" class="btn btn-primary btn-big fonteGrande" onclick="location.href='{{baseUrl}}/exame/'" value="Cadastrar Exame" /><span id="espaco"></span>
+        <input type="button" class="btn btn-warning btn-big fonteGrande" onclick="location.href='{{baseUrl}}/paciente/'" value="Cadastrar Paciente" >        
        
     </div>
 
@@ -18,14 +19,14 @@
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-
+            
             <div class="modal-body">
                 <p>Selecione a data e hora do exame: <input type="date" id="dataExame"></p>
                 <div class="row">
                     <div class="col-md-6">
                         <div>
                             <div class="input-group mb-3">
-                                <div class="input-group-prepend">
+                                <div class="rsinput-group-prepend">
                                     <span class="input-group-text" id="basic-addon1">Paciente:</span>
                                 </div>
                                 <input id="pacienteInput" type="text" placeholder="Nome" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
@@ -62,7 +63,8 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
 
-<script>    
+<script>
+    var baseUrl = document.getElementById('baseUrl').innerHTML;
 
     function createListItem(id, nome){
         return "<li paciente-id='" + id + "' class='list-group-item'>" +
@@ -105,7 +107,7 @@
         var _idExame = exame.attr("exame-id");       
 
         axios
-            .post("http://localhost:3000/index/paciente/marcar", {
+            .post(baseUrl + "/index/paciente/marcar", {
                 _idPaciente,
                 _idExame,
                 dataExame                
@@ -122,7 +124,7 @@
 
         if (dado != ''){
             axios
-                .get("http://localhost:3000/index/paciente/" + dado)
+                .get(baseUrl + "/index/paciente/" + dado)
                 .then(response => {
                     //popular lista
                     var combinedMarkup = '';
@@ -165,7 +167,7 @@
 
         if (dado != ''){
         axios
-            .get("http://localhost:3000/index/exame/" + dado)
+            .get(baseUrl + "/index/exame/" + dado)
             .then(response => {
                 //popular lista
                 var combinedMarkup = '';

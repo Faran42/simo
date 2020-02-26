@@ -18,7 +18,6 @@ mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 
-
 require('./user.model');
 require('./paciente.model');
 require('./exame.model');
