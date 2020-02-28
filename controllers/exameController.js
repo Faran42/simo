@@ -20,27 +20,40 @@ router.post('/', (req, res) => {
        
 });
 
-function insertRecord( req, res){
+async function insertRecord( req, res){
     var exame = new Exame();
 
-    exame.nome = req.body.nome;
-    exame.descricao = req.body.descricao;
-    exame.validade = req.body.validade;    
-    exame.save((err, doc) => {
-        if(!err)
-            res.redirect('exame/list')
-        else {
-            if(err.name == 'ValidationError'){
-                handleValidationError(err, req.body);
-                res.render('exame/addOrEdit.hbs',{
-                    viewTitle : "Insira um novo exame",
-                    exame : req.body
-                });
-            }                
+    const exameExiste = await Exame.findOne({ nome : req.body.nome })
 
-            console.log('Error during record insertion : ' + err);
-        }
-    });
+    if (!exameExiste){
+        exame.nome = req.body.nome;
+        exame.descricao = req.body.descricao;
+        exame.validade = req.body.validade;    
+        exame.save((err, doc) => {
+            if(!err)
+                res.redirect('exame/list')
+            else {
+                if(err.name == 'ValidationError'){
+                    handleValidationError(err, req.body);
+                    res.render('exame/addOrEdit.hbs',{
+                        viewTitle : "Insira um novo exame",
+                        exame : req.body
+                    });
+                }                
+
+                console.log('Error during record insertion : ' + err);
+            }
+        })
+
+    }else{
+        return res.render('exame/addOrEdit.hbs',{
+            viewTitle : "Insira um novo exame",
+            exame : req.body,
+            response: "Erro! Exame já cadastrado."
+        });
+    }
+
+    
 }
 
 function updateRecord(req, res){

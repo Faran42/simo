@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 mongoose.connect('mongodb+srv://omnistack:omnistack@cluster0-av1sg.gcp.mongodb.net/test?retryWrites=true&w=majority', {
     useUnifiedTopology: true,
     useNewUrlParser: true,
-    useCreateIndex: false 
+    useCreateIndex: true 
 }, (err) => {
     if(!err) {console.log('MongoDB Conection Succeeded.') }
     else { console.log('Error in DB connection: ' + err) }

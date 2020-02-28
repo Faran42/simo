@@ -3,15 +3,15 @@ const mongoose = require('mongoose');
 var pacienteSchema = new mongoose.Schema({
     nome:{
         type: String,
-        // required: 'Campo obrigatório.'
+        required: 'Campo obrigatório.'
     },
     sobreNome:{
         type: String,
-        // required: 'Campo obrigatório.'
+        required: 'Campo obrigatório.'
     },
     dataNascimento:{
         type: Date,
-        // required: 'Campo obrigatório.'
+        required: 'Campo obrigatório.'
     },
     sexo:{
         type: String,
@@ -19,11 +19,12 @@ var pacienteSchema = new mongoose.Schema({
     },
     cartaoSus:{
         type: Number,
-        // required: 'Campo obrigatório.'
+        required: 'Campo obrigatório.',
+        unique: true
     },
     endereco:{
         type: String,
-        // required: 'Campo obrigatório.'
+        required: 'Campo obrigatório.'
     },
     numero:{
         type: String,        
@@ -33,18 +34,22 @@ var pacienteSchema = new mongoose.Schema({
     },
     bairro:{
         type: String,
+        required: 'Campo obrigatório.'
         // required: 'Campo obrigatório.'
     },
     cidade:{
         type: String,
+        required: 'Campo obrigatório.'
         // required: 'Campo obrigatório.'
     },
     estado:{
         type: String,
+        required: 'Campo obrigatório.'
         // required: 'Campo obrigatório.'
     },
     cep:{
         type: String,
+        required: 'Campo obrigatório.'
         // required: 'Campo obrigatório.'
     },
     email:{
@@ -53,6 +58,7 @@ var pacienteSchema = new mongoose.Schema({
     },  
     telefone:{
         type: String,
+        required: 'Campo obrigatório.'
         // required: 'Campo obrigatório.'
     }      
 });

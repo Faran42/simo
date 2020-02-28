@@ -2,13 +2,16 @@ const mongoose = require('mongoose');
 
 var exameSchema = new mongoose.Schema({
     nome:{
-        type: String
+        type: String,
+        required: 'Campo obrigatório.',
+        unique: true
     },
     descricao:{
         type: String
     },
     validade:{
-        type: Number
+        type: Number,
+        required: 'Campo obrigatório.'
     }
 });
 

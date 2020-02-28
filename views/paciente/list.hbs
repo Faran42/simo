@@ -12,7 +12,6 @@
             <th>SUS</th>
             <th>Cidade</th>
             <th>Estado</th>
-            <th>E-mail</th>
             <th>Telefone</th>         
             <th></th>
         </tr>
@@ -20,11 +19,10 @@
     <tbody>
         {{#each list}}
         <tr>
-            <td>{{this.nome}}</td>
+            <td>{{this.nome}} {{this.sobreNome}}</td>
             <td>{{this.cartaoSus}}</td>
             <td>{{this.cidade}}</td>
             <td>{{this.estado}}</td>
-            <td>{{this.email}}</td>
             <td>{{this.telefone}}</td>
             <td>
                 <a href="/paciente/{{this._id}}"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></a>

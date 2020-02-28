@@ -1,3 +1,5 @@
+<span id="response" hidden >{{response}}</span>
+
 <h3>{{viewTitle}}</h3>
 
 <form action="/paciente" method="POST" autocomplete="off">
@@ -6,7 +8,7 @@
 
         <div class="form-group col-sm-6">
             <label>Nome:</label>
-            <input type="text" class="form-control" name="nome" placeholder="Ex.: Maria Fatima" value="{{paciente.nome}}">
+            <input type="text" class="form-control" name="nome" placeholder="Ex.: Maria Fatima"  value="{{paciente.nome}}" required>
             <div class="text-danger">
                 {{paciente.nomeError}}
             </div>
@@ -14,9 +16,9 @@
 
         <div class="form-group col-sm-6">
             <label>Sobrenome:</label>
-            <input type="text" class="form-control" name="sobrenome" placeholder="Ex.: Carvalho" value="{{paciente.sobrenome}}">
+            <input type="text" class="form-control" name="sobreNome" placeholder="Ex.: Carvalho" value="{{paciente.sobreNome}}" required>
             <div class="text-danger">
-                {{paciente.sobrenomeError}}
+                {{paciente.sobreNomeError}}
             </div>
         </div>
 
@@ -30,7 +32,7 @@
 
         <div class="form-group col-sm-4">
             <label>Data de Nascimento:</label>
-            <input type="date" class="form-control" name="dataNascimento" placeholder="Ex.: 09/03/1889" value="{{paciente.dataNascimento}}">
+            <input type="date" class="form-control" name="dataNascimento" placeholder="Ex.: 09/03/1889" value="{{paciente.dataNascimento}}" required>
             <div class="text-danger">
                 {{paciente.dataNascimentoError}}
             </div>
@@ -38,7 +40,7 @@
 
         <div class="form-group col-sm-6">
             <label>Nº do Cartão SUS:</label>
-            <input type="number" class="form-control" name="cartaoSus" placeholder="Ex.: 000 0000 0000 0000" value="{{paciente.cartaoSus}}">
+            <input type="number" class="form-control" maxlength="15" minlength="15" size="15" name="cartaoSus" placeholder="Ex.: 000 0000 0000 0000" value="{{paciente.cartaoSus}}" required>
             <div class="text-danger">
                 {{paciente.cartaoSusError}}
             </div>
@@ -46,7 +48,7 @@
 
         <div class="form-group col-sm-4">
             <label>Endereço:</label>
-            <input type="text" class="form-control" name="endereco" placeholder="Ex.: Rua José" value="{{paciente.endereco}}">
+            <input type="text" class="form-control" name="endereco" placeholder="Ex.: Rua José" value="{{paciente.endereco}}" required>
             <div class="text-danger">
                 {{paciente.enderecoError}}
             </div>
@@ -54,7 +56,7 @@
 
         <div class="form-group col-sm-2">
             <label>N°:</label>
-            <input type="text" class="form-control" name="numero" placeholder="Ex.: 42" value="{{paciente.numero}}">
+            <input type="text" class="form-control" name="numero" placeholder="Ex.: 42" value="{{paciente.numero}}" >
             <div class="text-danger">
                 {{paciente.numeroError}}
             </div>
@@ -70,7 +72,7 @@
 
         <div class="form-group col-sm-3">
             <label>Bairro:</label>
-            <input type="text" class="form-control" name="bairro" placeholder="Ex.: São Jóse" value="{{paciente.bairro}}">
+            <input type="text" class="form-control" name="bairro" placeholder="Ex.: São Jóse" value="{{paciente.bairro}}" required>
             <div class="text-danger">
                 {{paciente.bairroError}}
             </div>
@@ -78,7 +80,7 @@
 
         <div class="form-group col-sm-6">
             <label>Cidade:</label>
-            <input type="text" class="form-control" name="cidade" placeholder="Ex.: Natal" value="{{paciente.cidade}}">
+            <input type="text" class="form-control" name="cidade" placeholder="Ex.: Natal" value="{{paciente.cidade}}" required>
             <div class="text-danger">
                 {{paciente.cidadeError}}
             </div>
@@ -86,7 +88,7 @@
 
         <div class="form-group col-sm-2">
             <label>Estado:</label>
-            <input type="text" class="form-control" name="estado" placeholder="Ex.: RN" value="{{paciente.eestado}}">
+            <input type="text" class="form-control" name="estado" placeholder="Ex.: RN" value="{{paciente.eestado}}" required>
             <div class="text-danger">
                 {{paciente.estadoError}}
             </div>
@@ -94,7 +96,7 @@
 
         <div class="form-group col-sm-4">
             <label>CEP:</label>
-            <input type="text" class="form-control" name="cep" placeholder="Ex.: 00000-000" value="{{paciente.cep}}">
+            <input type="text" class="form-control" name="cep" placeholder="Ex.: 00000-000" value="{{paciente.cep}}" required>
             <div class="text-danger">
                 {{paciente.cepError}}
             </div>
@@ -110,7 +112,7 @@
 
         <div class="form-group col-sm-6">
             <label>Telefone:</label>
-            <input type="text" class="form-control" name="telefone" placeholder="Ex.: (00) 00000-0000" value="{{paciente.telefone}}">
+            <input type="text" class="form-control" name="telefone" placeholder="Ex.: (00) 00000-0000" value="{{paciente.telefone}}"required>
             <div class="text-danger">
                 {{paciente.telefoneError}}
             </div>
@@ -122,3 +124,13 @@
         </div>
 </div>
 </form>
+
+<script>
+
+    var a = document.getElementById('response').innerHTML;
+
+    if(a)
+        alert(a);
+   
+
+</script>

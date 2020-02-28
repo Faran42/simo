@@ -23,37 +23,55 @@ router.post('/', (req, res) => {
        
 });
 
-function insertRecord( req, res){
-    var paciente = new Paciente();
-    paciente.nome = req.body.nome;
-    paciente.sobrenome = req.body.sobrenome;
-    paciente.dataNascimento = req.body.dataNascimento;
-    paciente.sexo = req.body.sexo;
-    paciente.cartaoSus = req.body.cartaoSus;
-    paciente.endereco = req.body.endereco;
-    paciente.numero = req.body.numero;
-    paciente.complemento = req.body.complemento;
-    paciente.bairro = req.body.bairro;
-    paciente.cidade = req.body.cidade;
-    paciente.estado = req.body.estado;
-    paciente.cep = req.body.cep;
-    paciente.telefone = req.body.telefone;
-    paciente.save((err, doc) => {
-        if(!err)
-            res.redirect('paciente/list')
-        else {
-            if(err.name == 'ValidationError'){
-                handleValidationError(err, req.body);
-                res.render('paciente/addOrEdit.hbs',{
-                    viewTitle : "Insira um novo paciente",
-                    paciente : req.body
-                });
-            }
-                
+async function insertRecord( req, res){
 
-            console.log('Error during record insertion : ' + err);
-        }
-    });
+    
+
+    const pacienteExiste = await Paciente.findOne({ cartaoSus: req.body.cartaoSus })
+
+    if(!pacienteExiste){
+
+        var paciente = new Paciente();
+
+        paciente.nome = req.body.nome;
+        paciente.sobreNome = req.body.sobreNome;
+        paciente.dataNascimento = req.body.dataNascimento;
+        paciente.sexo = req.body.sexo;
+        paciente.cartaoSus = req.body.cartaoSus;
+        paciente.endereco = req.body.endereco;
+        paciente.numero = req.body.numero;
+        paciente.complemento = req.body.complemento;
+        paciente.bairro = req.body.bairro;
+        paciente.cidade = req.body.cidade;
+        paciente.estado = req.body.estado;
+        paciente.cep = req.body.cep;
+        paciente.telefone = req.body.telefone;
+
+        paciente.save((err, doc) => {
+            if (!err)
+                res.redirect('paciente/list')
+            else {
+                if(err.name == 'ValidationError'){
+                    handleValidationError(err, req.body);
+                    res.render('paciente/addOrEdit.hbs',{
+                        viewTitle : "Insira um novo paciente",
+                        paciente : req.body
+
+                    });
+                }                    
+    
+                console.log('Error during record insertion : ' + err);
+            }
+        });
+    }
+
+    else{
+        return res.render('paciente/addOrEdit.hbs',{
+            viewTitle : "Insira um novo paciente",
+            paciente : req.body,
+            response: "Erro! Usuário já existe na base de dados."
+       })
+    }   
 }
 
 function updateRecord(req, res){

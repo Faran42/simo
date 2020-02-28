@@ -1,3 +1,4 @@
+<span id="response" hidden >{{response}}</span>
 <h3>{{viewTitle}}</h3>
 
 <form action="/exame" method="POST" autocomplete="off">
@@ -6,7 +7,7 @@
 
             <div class="form-group col-sm-8">
                 <label>Nome:</label>
-                <input type="text" class="form-control" name="nome" placeholder="Nome do exame" value="{{exame.nome}}">
+                <input type="text" class="form-control" name="nome" placeholder="Nome do exame" value="{{exame.nome}}" required>
                 <div class="text-danger">
                     {{exame.nomeError}}
                 </div>
@@ -14,7 +15,7 @@
 
             <div class="form-group col-sm-4">
                 <label>Validade:</label>
-                <input type="number" class="form-control" name="validade" placeholder="Quantidade de dias" value="{{exame.validade}}">      
+                <input type="number" class="form-control" name="validade" placeholder="Quantidade de dias" value="{{exame.validade}}" required>      
             </div>
 
             <div class="form-group col-sm-12">
@@ -31,3 +32,13 @@
             </div>
     </div>
 </form>
+
+<script>
+
+    var a = document.getElementById('response').innerHTML;
+
+    if(a){
+        alert(a);
+    }
+
+</script>
