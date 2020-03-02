@@ -1,5 +1,6 @@
 const express = require('express');
 var router = express.Router();
+const moment = require('moment');
 
 const mongoose = require('mongoose');
 const Paciente = mongoose.model('Paciente');
@@ -165,13 +166,18 @@ function handleValidationError(err, body){
 
 router.get('/:id', (req, res) => {
     Paciente.findById(req.params.id, (err, doc) => {
-        console.log({doc})
+        
+        doc.dataNascimentoConvertida = moment.utc(doc.dataNascimento).format('YYYY-MM-DD');
+        
         if(!err){
             res.render("paciente/addorEdit.hbs", {
-                viewTitle: "Atualizar Paciente",
-                paciente: doc
+                viewTitle: "Atualizar Paciente",                 
+                paciente: doc,
+                dnc: doc.dataNascimentoConvertida
             });
         }
+
+        console.log({doc})
     });
 });
 

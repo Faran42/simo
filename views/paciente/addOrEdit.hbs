@@ -1,8 +1,9 @@
 <span id="response" hidden >{{response}}</span>
+<span id="dnc" hidden >{{dnc}}</span>
 
 <h3>{{viewTitle}}</h3>
 
-<form action="/paciente" method="POST" autocomplete="off">
+<form id="pacienteForm"action="/paciente" method="POST" autocomplete="off" >
 <div class="row">
     <input type="hidden" name="_id" value="{{paciente._id}}">
 
@@ -23,8 +24,12 @@
         </div>
 
          <div class="form-group col-sm-2">
-            <label>Sexo:</label>
-            <input type="text" class="form-control" name="sexo" placeholder="Ex.: Feminino" value="{{paciente.sexo}}">
+            <label>Sexo:</label></br>
+            
+            <select class="form-control" name="sexo" value="{{paciente.sexo}}" form="pacienteForm" required>
+                <option value="M">Masculino</option>
+                <option value="F">Feminino</option>
+            </select> 
             <div class="text-danger">
                 {{paciente.sexoError}}
             </div>
@@ -32,7 +37,7 @@
 
         <div class="form-group col-sm-4">
             <label>Data de Nascimento:</label>
-            <input type="date" class="form-control" name="dataNascimento" placeholder="Ex.: 09/03/1889" value="{{paciente.dataNascimento}}" required>
+            <input type="date" class="form-control" id="dataN" name="dataNascimento" placeholder="Ex.: 09/03/1889" value="{{paciente.dataNascimento}}" required>
             <div class="text-danger">
                 {{paciente.dataNascimentoError}}
             </div>
@@ -86,15 +91,44 @@
             </div>
         </div>
 
-        <div class="form-group col-sm-2">
-            <label>Estado:</label>
-            <input type="text" class="form-control" name="estado" placeholder="Ex.: RN" value="{{paciente.eestado}}" required>
+        <div class="form-group col-sm-3">
+            <label>Estado:</label> </br>         
+            <select class="form-control" id="estado" name="estado"  value="{{paciente.estado}}" form="pacienteForm" required>
+                <option value="AC">Acre</option>
+                <option value="AL">Alagoas</option>
+                <option value="AP">Amapá</option>
+                <option value="AM">Amazonas</option>
+                <option value="BA">Bahia</option>
+                <option value="CE">Ceará</option>
+                <option value="DF">Distrito Federal</option>
+                <option value="ES">Espírito Santo</option>
+                <option value="GO">Goiás</option>
+                <option value="MA">Maranhão</option>
+                <option value="MT">Mato Grosso</option>
+                <option value="MS">Mato Grosso do Sul</option>
+                <option value="MG">Minas Gerais</option>
+                <option value="PA">Pará</option>
+                <option value="PB">Paraíba</option>
+                <option value="PR">Paraná</option>
+                <option value="PE">Pernambuco</option>
+                <option value="PI">Piauí</option>
+                <option value="RJ">Rio de Janeiro</option>
+                <option value="RN">Rio Grande do Norte</option>
+                <option value="RS">Rio Grande do Sul</option>
+                <option value="RO">Rondônia</option>
+                <option value="RR">Roraima</option>
+                <option value="SC">Santa Catarina</option>
+                <option value="SP">São Paulo</option>
+                <option value="SE">Sergipe</option>
+                <option value="TO">Tocantins</option>
+                <option value="EX">Estrangeiro</option>
+            </select>
             <div class="text-danger">
                 {{paciente.estadoError}}
             </div>
         </div>
 
-        <div class="form-group col-sm-4">
+        <div class="form-group col-sm-3">
             <label>CEP:</label>
             <input type="text" class="form-control" name="cep" placeholder="Ex.: 00000-000" value="{{paciente.cep}}" required>
             <div class="text-danger">
@@ -126,11 +160,19 @@
 </form>
 
 <script>
+    
+    let dn = document.getElementById('dnc').innerHTML
 
-    var a = document.getElementById('response').innerHTML;
+    document.getElementById('dataN').value = dn;
+    let a = document.getElementById('response').innerHTML;
+
 
     if(a)
         alert(a);
+    
+    
+
+
    
 
 </script>

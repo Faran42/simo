@@ -21,11 +21,7 @@
             <td id="nomePaciente">{{this._idPaciente.nome}}</td>
             <td id="nomeExame">{{this._idExame.nome}}</td>
             <td id="dataExame">{{this.dataExameConvertido}}</td>            
-            <td id="dataExame">{{this._idExame.validade}} dias</td>            
-            <td>
-                <a href="/exame/{{this._id}}"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></a>
-                <a href="/exame/delete/{{this._id}}" onclick="return confirm('Are you sure to delete this record?');"><i class="fa fa-trash fa-lg" aria-hidden="true"></i></a>
-            </td>
+            <td id="dataExame">{{this._idExame.validade}} dias</td>
         </tr>
         {{/each}}
     </tbody>
@@ -42,8 +38,5 @@
     $("#nomePaciente").ready(function(e) {
     console.log();
 });
-
-
-
 
 </script>
